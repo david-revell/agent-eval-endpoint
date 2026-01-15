@@ -8,6 +8,35 @@ This repo is a small scaffold for:
 
 There are no built-in demo agents here. The goal is to integrate external agents via the endpoint.
 
+## What we are doing
+
+We are building a minimal, local-first scaffold that lets you:
+
+- Run a FastAPI callback endpoint for agent replies.
+- Send synthetic user traffic into that endpoint.
+- Evaluate completed conversations after the run.
+
+## Quick test (PowerShell)
+
+Start the server:
+
+```powershell
+python test_callbacks.py
+```
+
+Send a test callback (PowerShell 5.1):
+
+```powershell
+Invoke-WebRequest `
+  -Uri http://127.0.0.1:8008/api/v1/callback `
+  -Method POST `
+  -ContentType "application/json" `
+  -Body '{"agent_answer":"Hello"}' `
+  -UseBasicParsing
+```
+
+Note: The `-UseBasicParsing` flag avoids the Windows PowerShell 5.1 "Script Execution Risk" prompt.
+
 ## Current files
 
 - `test_callbacks.py`: simple callback endpoint (to customize)
