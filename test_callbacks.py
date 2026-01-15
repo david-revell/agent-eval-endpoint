@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.security.api_key import APIKeyHeader
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 import uvicorn
 
 load_dotenv(override=False)
@@ -67,8 +67,7 @@ class CallbackPayload(BaseModel):
     turn_id: Optional[str] = Field(default=None)
     metadata: Optional[Dict[str, Any]] = Field(default=None)
 
-    class Config:
-        extra = "allow"
+    model_config = ConfigDict(extra="allow")
 
 
 # Store received callbacks in memory for testing
