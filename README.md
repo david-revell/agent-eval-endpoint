@@ -37,6 +37,19 @@ Invoke-WebRequest `
 
 Note: The `-UseBasicParsing` flag avoids the Windows PowerShell 5.1 "Script Execution Risk" prompt.
 
+## Synthetic user runner
+
+Send a minimal two-turn synthetic run into the callback endpoint:
+
+```powershell
+python synthetic_user.py
+```
+
+Optional env vars:
+
+- `CALLBACK_URL` (default: `http://127.0.0.1:8008/api/v1/callback`)
+- `APP_KEY` (adds `X-API-Key` header)
+
 ## Logs
 
 Every callback received by the endpoint is appended to `logs/callbacks.jsonl` as a single JSON line.
