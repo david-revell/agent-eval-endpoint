@@ -37,6 +37,11 @@ Invoke-WebRequest `
 
 Note: The `-UseBasicParsing` flag avoids the Windows PowerShell 5.1 "Script Execution Risk" prompt.
 
+## Logs
+
+Every callback received by the endpoint is appended to `logs/callbacks.jsonl` as a single JSON line.
+This creates a simple, append-only record you can review or analyze later.
+
 ## Current files
 
 - `test_callbacks.py`: simple callback endpoint (to customize)

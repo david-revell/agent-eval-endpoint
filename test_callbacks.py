@@ -7,6 +7,7 @@ Run:
 
 from __future__ import annotations
 
+import json
 import logging
 import os
 from datetime import datetime
@@ -19,12 +20,17 @@ from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel, ConfigDict, Field
 import uvicorn
 
+print("CWD:", os.getcwd())
+
+
 load_dotenv(override=False)
 
 # Configuration
 API_KEY_NAME = "X-API-Key"
 CALLBACK_PORT = int(os.getenv("CALLBACK_PORT", "8008"))
 APP_KEY = os.getenv("APP_KEY")
+LOG_DIR = os.getenv("LOG_DIR", "logs")
+LOG_PATH = os.path.join(LOG_DIR, "callbacks.jsonl")
 
 app = FastAPI(
     title="Agent Callback API",
@@ -108,6 +114,9 @@ async def callback(
         "payload": payload.dict(),
     }
     received_callbacks.append(callback_data)
+    os.makedirs(LOG_DIR, exist_ok=True)
+    with open(LOG_PATH, "a", encoding="utf-8") as log_file:
+        log_file.write(json.dumps(callback_data, ensure_ascii=True) + "\n")
 
     logger.info("Callback received at %s", received_at)
 
