@@ -20,9 +20,6 @@ from fastapi.security.api_key import APIKeyHeader
 from pydantic import BaseModel, ConfigDict, Field
 import uvicorn
 
-print("CWD:", os.getcwd())
-
-
 load_dotenv(override=False)
 
 # Configuration
